@@ -7,12 +7,17 @@ terraform {
   }
 }
 
+variable "run_id" {
+  type        = string
+  description = "Unique ID injected by the Harness Pipeline"
+}
+
 provider "aws" {
   region = "us-east-1"
 }
 
 resource "aws_s3_bucket" "main" {
-  bucket = "harness-demo-bucket"
+  bucket = "harness-demo-bucket-${var.run_id}" 
 }
 
 resource "aws_s3_bucket_versioning" "main" {
